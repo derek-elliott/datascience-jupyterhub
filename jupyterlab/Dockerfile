@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:latest
+FROM saywhat1/datascience-notebook:latest
 
 RUN conda update --quiet --yes jupyterlab \
     && jupyter labextension install @jupyterlab/geojson-extension \

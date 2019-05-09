@@ -2,7 +2,7 @@ import os
 from jupyterhub.auth import DummyAuthenticator
 
 c.JupyterHub.authenticator_class = DummyAuthenticator
-c.Authenticator.admin_users = ['delliott']
+c.Authenticator.admin_users = [os.environ['ADMIN_USER']]
 
 c.Spawner.default_url = '/lab'
 c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'

@@ -3,12 +3,14 @@ version: '3'
 services:
   jupyterhub:
     build: jupyterhub
+    image: ${DOCKER_REPO}/jupyterhub
     container_name: jupyterhub_hub
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       DOCKER_NETWORK_NAME: ${COMPOSE_PROJECT_NAME}_default
       HUB_IP: jupyterhub_hub
+      ADMIN_USER: ${ADMIN_USER}
     networks:
       - traefik
       - notebooks
@@ -19,13 +21,13 @@ services:
 
   jupyterlab:
     build: jupyterlab
-    image: saywhat1/jupyter-datascience
+    image: ${DOCKER_REPO}/jupyter-datascience
     command: echo
 
 networks:
   traefik:
     external:
-      name: traefik_webgateway
+      name: ${TRAEFIK_DOCKER_NETWORK}
   notebooks:
     external:
       name: ${COMPOSE_PROJECT_NAME}_default
