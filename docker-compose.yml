@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  jupyterhub:
+    build: jupyterhub
+    container_name: jupyterhub_hub
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      DOCKER_NETWORK_NAME: ${COMPOSE_PROJECT_NAME}_default
+      HUB_IP: jupyterhub_hub
+    networks:
+      - traefik
+      - notebooks
+    labels:
+      - "traefik.backend=jupyterhub"
+      - "traefik.frontend.rule=Host:hub.localhost"
+      - "traefik.port=8000"
+
+  jupyterlab:
+    build: jupyterlab
+    image: saywhat1/jupyter-datascience
+    command: echo
+
+networks:
+  traefik:
+    external:
+      name: traefik_webgateway
+  notebooks:
+    external:
+      name: ${COMPOSE_PROJECT_NAME}_default
