@@ -1,10 +1,11 @@
 import os
 from jupyterhub.auth import DummyAuthenticator
 
-c.JupyterHub.authenticator_class = DummyAuthenticator
+# c.JupyterHub.authenticator_class = DummyAuthenticator
 c.Authenticator.admin_users = [os.environ['ADMIN_USER']]
 
 c.Spawner.default_url = '/lab'
+c.Spawner.cmd = ['jupyter-labhub']
 c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
 c.DockerSpawner.network_name = os.environ['DOCKER_NETWORK_NAME']
 c.DockerSpawner.image_whitelist = {

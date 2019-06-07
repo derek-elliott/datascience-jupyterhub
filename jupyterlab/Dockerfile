@@ -15,7 +15,8 @@ RUN conda update --quiet --yes jupyterlab \
     && jupyter labextension install jupyterlab_tensorboard \
     && jupyter labextension install @jupyterlab/hub-extension
 
-RUN pip install jupyterlab_latex
+RUN pip install awscli jupyterlab_latex jupyter-tensorboard jupyterlab_sql --ignore-installed PyYAML \
+    && jupyter lab build
 
 RUN conda install --yes tensorflow-gpu \
     keras \
